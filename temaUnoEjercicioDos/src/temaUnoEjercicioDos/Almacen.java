@@ -87,12 +87,17 @@ public class Almacen {
 	public static void main(String[] args) {
 		Almacen deLaGiraldilla = new Almacen();
 		Suministrador nuevoSuministrador = new Suministrador("Zhenpeng","China",20);
-		int[] arreglo = {7,1,2,3,4,5,6,7,8,9}; 
+		deLaGiraldilla.suministradores.add(nuevoSuministrador);
+ 		int[] arreglo = {7,1,2,3,4,5,6,7,8,9}; 
 		Vino nuevoVino = new Vino("Bonita Uva", "Uvas", 1999, "tinto", 20, 5, 2, arreglo, nuevoSuministrador);
-		nuevoSuministrador = new Suministrador("Juan","México", 31);
 		deLaGiraldilla.vinos.add(nuevoVino);
+		nuevoSuministrador = new Suministrador("Juan","México", 31);
+		deLaGiraldilla.suministradores.add(nuevoSuministrador);
 		nuevoVino = new Vino("Muy Bueno","Manzanas",2010,"blanco",20,5,2,arreglo,nuevoSuministrador);
 		deLaGiraldilla.vinos.add(nuevoVino);
 		deLaGiraldilla.verificarYPedirVinos();
+		for(Suministrador suministrador:deLaGiraldilla.suministradores) {
+			System.out.println(suministrador.getNombre()+":"+suministrador.getPais()+":"+suministrador.getTiempo());
+		}
 	}
 }

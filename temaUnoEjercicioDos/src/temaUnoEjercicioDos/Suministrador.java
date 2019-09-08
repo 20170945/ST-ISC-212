@@ -1,9 +1,11 @@
 package temaUnoEjercicioDos;
 
 public class Suministrador {
+	//Atributos
 	private String nombre;
 	private String pais;
 	private int tiempo;
+	//get y set
 	public String getNombre() {
 		return nombre;
 	}
@@ -20,11 +22,21 @@ public class Suministrador {
 		return tiempo;
 	}
 	public void setTiempo(int tiempo) {
-		this.tiempo = tiempo;
+		if(tiempo>0) {
+			this.tiempo = tiempo;
+		} else {
+			System.out.println("El tiempo de entraga del suministrador debe ser positivo.");
+		}
 	}
+	
+	//Constructores
+	public Suministrador() {
+		
+	}
+	
 	public Suministrador(String nombre, String pais, int tiempo) {
 		this.nombre = nombre;
 		this.pais = pais;
-		this.tiempo = tiempo;
+		this.setTiempo(tiempo);
 	}
 }

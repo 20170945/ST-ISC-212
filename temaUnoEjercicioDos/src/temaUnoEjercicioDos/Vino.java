@@ -123,26 +123,4 @@ public class Vino {
 		}
 		this.ventas[0]=valor;
 	}
-	
-	private int promedioVentasRango(int desde, int hasta) {
-		int promedio = 0;
-		for(int i=desde;i<=hasta;i++) {
-			promedio += this.ventas[i];
-		}
-		return promedio/3;
-	}
-	
-	public boolean verificarSiDebePedir() {
-		try {
-			this.getVentas().toString();
-			this.suministrador.getNombre();
-		} catch (Exception e) {
-			System.out.println("Error: No fue declarada la venta o el suministrador.");
-			return false;
-		}
-		if (this.ventas[0] > this.promedioVentasRango(1,3) && this.suministrador.getTiempo() < 30 && this.disponibilidadReal < this.disponibilidadMin) {
-			return true;
-		}
-		return false;
-	}
 }

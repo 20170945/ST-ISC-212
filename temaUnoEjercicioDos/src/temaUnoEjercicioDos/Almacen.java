@@ -1,6 +1,5 @@
 package temaUnoEjercicioDos;
 
-import java.time.Year;
 import java.util.ArrayList;
 
 public class Almacen {
@@ -37,10 +36,32 @@ public class Almacen {
 	
 	//Operaciones
 	
+	private int promedioRango(int array[], int desde, int hasta) {
+		int promedio = 0;
+		for(int i=desde;i<hasta;i++) {
+			promedio+=array[i];
+		}
+		return promedio/3;
+	}
+	
+	public boolean verificarSiDebePedir(Vino vino) {
+		try {
+			vino.getVentas().toString();
+			vino.getSuministrador().getNombre();
+		} catch (Exception e) {
+			System.out.println("Error: No fue declarada la venta o el suministrador.");
+			return false;
+		}
+		if (vino.getVentas()[0] > promedioRango(vino.getVentas(), 1, 4) && vino.getSuministrador().getTiempo() < 30 && vino.getDisponibilidadReal() < vino.getDisponibilidadMin()) {
+			return true;
+		}
+		return false;
+	}
+	
 	//funcion temporal
 	private void pedirASuministrador(Vino vino, int cantidad) {
 		Suministrador suministrador = vino.getSuministrador();
-		System.out.print("Se ha enviado el mensaje al pedido que detalla" + cantidad + " botella");
+		System.out.print("Se ha enviado el mensaje que contiene el pedido de " + cantidad + " botella");
 		if(cantidad > 1) {
 			System.out.print("s");
 		}
@@ -53,7 +74,7 @@ public class Almacen {
 		}
 		int cantVinoPedidos;
 		for(Vino vino:this.vinos) {
-			if(vino.verificarSiDebePedir()) {
+			if(verificarSiDebePedir(vino)) {
 				cantVinoPedidos = vino.getDisponibilidadMax() - vino.getDisponibilidadReal();
 				if(cantVinoPedidos == 0) {
 					continue;
@@ -68,6 +89,9 @@ public class Almacen {
 		Suministrador nuevoSuministrador = new Suministrador("Zhenpeng","China",20);
 		int[] arreglo = {7,1,2,3,4,5,6,7,8,9}; 
 		Vino nuevoVino = new Vino("Bonita Uva", "Uvas", 1999, "tinto", 20, 5, 2, arreglo, nuevoSuministrador);
+		nuevoSuministrador = new Suministrador("Juan","México", 31);
+		deLaGiraldilla.vinos.add(nuevoVino);
+		nuevoVino = new Vino("Muy Bueno","Manzanas",2010,"blanco",20,5,2,arreglo,nuevoSuministrador);
 		deLaGiraldilla.vinos.add(nuevoVino);
 		deLaGiraldilla.verificarYPedirVinos();
 	}

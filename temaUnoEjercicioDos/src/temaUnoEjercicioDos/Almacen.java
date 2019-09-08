@@ -44,7 +44,7 @@ public class Almacen {
 		if(cantidad > 1) {
 			System.out.print("s");
 		}
-		System.out.print(" del vino \"" + vino.getNombre() +"\" al suministrador " + suministrador.getNombre() + ", localizado en "+ suministrador.getPais() +".");
+		System.out.println(" del vino \"" + vino.getNombre() +"\" al suministrador " + suministrador.getNombre() + ", localizado en "+ suministrador.getPais() +".");
 	}
 		
 	public void verificarYPedirVinos() {

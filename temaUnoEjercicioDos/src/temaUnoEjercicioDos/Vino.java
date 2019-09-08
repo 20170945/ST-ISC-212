@@ -2,7 +2,8 @@ package temaUnoEjercicioDos;
 
 public class Vino {
 	private String nombre;
-	private int year;
+	private String cosecha;
+	private int anno;
 	private String tipo;
 	private int disponibilidadMin;
 	private int disponibilidadMax;
@@ -15,11 +16,17 @@ public class Vino {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public int getYear() {
-		return year;
+	public String getCosecha() {
+		return cosecha;
 	}
-	public void setYear(int year) {
-		this.year = year;
+	public void setCosecha(String cosecha) {
+		this.cosecha = cosecha;
+	}
+	public int getAnno() {
+		return anno;
+	}
+	public void setAnno(int anno) {
+		this.anno = anno;
 	}
 	public String getTipo() {
 		return tipo;
@@ -57,7 +64,16 @@ public class Vino {
 	public void setSuministrador(Suministrador suministrador) {
 		this.suministrador = suministrador;
 	}
-	
-	
+	public Vino(String nombre, String cosecha, int anno, String tipo, int disponibilidadMax, int disponibilidadMin, int disponibilidadReal, int[] ventas, Suministrador suministrador) {
+		this.nombre = nombre;
+		this.cosecha = cosecha;
+		this.anno = anno;
+		this.tipo = tipo;
+		this.disponibilidadMax = disponibilidadMax;
+		this.disponibilidadMin = disponibilidadMin;
+		this.disponibilidadReal = disponibilidadReal;
+		this.ventas = ventas;
+		this.suministrador = suministrador;
+	}
 	
 }

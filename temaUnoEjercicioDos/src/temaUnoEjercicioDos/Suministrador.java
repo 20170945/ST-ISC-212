@@ -22,7 +22,9 @@ public class Suministrador {
 	public void setTiempo(int tiempo) {
 		this.tiempo = tiempo;
 	}
-	public Suministrador() {
-		System.out.println("Introduzca informaci");
+	public Suministrador(String nombre, String pais, int tiempo) {
+		this.nombre = nombre;
+		this.pais = pais;
+		this.tiempo = tiempo;
 	}
 }

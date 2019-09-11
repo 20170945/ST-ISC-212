@@ -10,8 +10,10 @@ public class Vino {
 	private int dispReal;
 	private int[] ventas;
 	private Suministrador miSumi;
+	private float precioDeCompra;
+	private float precioDeVenta;
 	public Vino(String id, String name, String tipo, int cosecha, int dispMin, int dispMax, int dispReal,
-			Suministrador miSumi) {
+			Suministrador miSumi, float precioDeCompra, float precioDeVenta) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -22,6 +24,8 @@ public class Vino {
 		this.dispReal = dispReal;
 		this.miSumi = miSumi;
 		this.ventas = new int[10];
+		this.precioDeCompra = precioDeCompra;
+		this.precioDeVenta = precioDeVenta;
 	}
 	public String getId() {
 		return id;
@@ -77,6 +81,19 @@ public class Vino {
 	public void setMiSumi(Suministrador miSumi) {
 		this.miSumi = miSumi;
 	}
+	public float getPrecioDeCompra() {
+		return precioDeCompra;
+	}
+	public void setPrecioDeCompra(float precioDeCompra) {
+		this.precioDeCompra = precioDeCompra;
+	}
+	public float getPrecioDeVenta() {
+		return precioDeVenta;
+	}
+	public void setPrecioDeVenta(float precioDeVenta) {
+		this.precioDeVenta = precioDeVenta;
+	}
+	
 	public boolean promedioVentas() {
 		boolean promedio = false;
 		int suma = 0;
@@ -87,5 +104,15 @@ public class Vino {
 			promedio = true;
 		}
 		return promedio;
+	}
+	public float rentaActual() {
+		return (dispMax-dispReal)*(precioDeVenta-precioDeCompra);
+	}
+	public float gananciasTotal() {
+		float suma = dispMax - dispReal;
+		for(int venta:ventas) {
+			suma+=venta;
+		}
+		return suma*(precioDeVenta-precioDeCompra);
 	}
 }

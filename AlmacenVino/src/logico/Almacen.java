@@ -63,7 +63,7 @@ public class Almacen {
 		Vino aux = null;
 		boolean encontrado = false;
 		int i = 0;
-		while(!encontrado) {
+		while(!encontrado & i<cantVinos) {
 			if(misVinos[i].getId().equalsIgnoreCase(idVino)) {
 				aux = misVinos[i];
 				encontrado = true;
@@ -74,11 +74,10 @@ public class Almacen {
 	}
 	
 	private Suministrador buscarSuministrador(String idSumi) {
-		// TODO Auto-generated method stub
 		Suministrador aux = null;
 		boolean encontrado = false;
 		int i = 0;
-		while(!encontrado) {
+		while(!encontrado &&  i<cantSumi) {
 			if(misSumis[i].getId().equalsIgnoreCase(idSumi)) {
 				aux = misSumis[i];
 				encontrado = true;
@@ -87,4 +86,50 @@ public class Almacen {
 		}
 		return aux;
 	}
+	
+	public int cantVinoDeTipo(String tipo) {
+		int cantVinosTipo=0;
+		for(int i=0;i<cantVinos;i++) {
+			if(misVinos[i].getTipo().equalsIgnoreCase(tipo)) {
+				cantVinosTipo+=misVinos[i].getDispReal();
+			}
+		}
+		return cantVinosTipo;
+	}
+	
+	public float estimarGanacias() {
+		float gananciaEstimada = 0;
+		for(int i=0;i<cantVinos;i++) {
+			gananciaEstimada+=misVinos[i].getDispReal()*(misVinos[i].getPrecioDeVenta()-misVinos[i].getPrecioDeCompra());
+		}
+		return gananciaEstimada;
+	}
+	
+	public String vinoMasRentable() {
+		String nombre = misVinos[0].getName();
+		float aux = misVinos[0].gananciasTotal();
+		for (int i = 1; i<cantVinos; i++) {
+			if(aux<misVinos[i].gananciasTotal()) {
+				aux = misVinos[i].gananciasTotal();
+				nombre = misVinos[i].getName();
+			}
+		}
+		return nombre;
+	}
+	
+	/*public Vino vinoMasRentable() {
+		
+		if(cantVinos==0) {
+			return null;
+		}
+		Vino mRentable = misVinos[0];
+		for(int i=1;i<cantVinos;i++) {
+			if(misVinos[i].rentaActual()>mRentable.rentaActual()) {
+				mRentable = misVinos[i];
+			}
+		}
+		return mRentable;
+		
+	}*/
+	
 }

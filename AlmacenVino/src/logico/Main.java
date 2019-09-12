@@ -1,7 +1,6 @@
 package logico;
 
 public class Main {
-	
 	public static void main(String args[]) {
 		Almacen alma = new Almacen();
 		Suministrador s1 = new Suministrador("s-1", "Juan", "Chile", 20);

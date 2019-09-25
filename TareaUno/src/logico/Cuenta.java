@@ -116,6 +116,9 @@ public class Cuenta {
 	}
 	
 	protected float revisionMensual() {
-		return (float) (this.saldo*(1+this.interes) - 0.6);
+		if(this.estado.equalsIgnoreCase("habilitada")) {
+			return (float) (this.saldo*(1+this.interes) - 0.6);
+		}
+		return 0;
 	}
 }

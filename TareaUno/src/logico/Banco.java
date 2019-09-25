@@ -56,10 +56,16 @@ public class Banco {
 	}
 
 	public void eliminarCliente(String cedula) {
-		int i=0;
+		int i=0, j=0;
+		Cuenta[] cuentasAEliminar = null;
 		while(i<cantClientes) {
 			if(this.clientes[i].getCedula().equalsIgnoreCase(cedula)) {
 				cantClientes--;
+				cuentasAEliminar = clientes[i].getCuentas();
+				while(j<this.clientes[i].getCantCuentas()) {
+					eliminarCuenta(cuentasAEliminar[j].getCodigo());
+					j++;
+				}
 				while(i<cantClientes) {
 					clientes[i] = clientes[i+1];
 					i++;
@@ -83,13 +89,7 @@ public class Banco {
 		return aux;
 	}
 	
-	public void insertarCuenta(Cuenta cuenta) {
-		cuentas[cantCuentas] = cuenta;
-		cantCuentas++;
-		generadorCodigoCuenta++;
-	}
-	
-	public void eliminarCuenta(String codigo) {
+	private void eliminarCuenta(String codigo) {
 		int i=0;
 		while(i<cantCuentas) {
 			if(this.cuentas[i].getCodigo().equalsIgnoreCase(codigo)) {
@@ -104,8 +104,11 @@ public class Banco {
 		}
 	}
 	
-	public void addAccountClient(Cliente cliente, Cuenta cuenta) {
+	public void abrirCuenta(Cliente cliente, Cuenta cuenta) {
+		cuentas[cantCuentas] = cuenta;
 		cliente.insertarCuenta(cuenta);
+		cantCuentas++;
+		generadorCodigoCuenta++;
 	}
 	
 	public int totalPuntos(Cliente cliente) {

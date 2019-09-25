@@ -6,6 +6,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import logico.Banco;
+
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.border.BevelBorder;
@@ -15,6 +18,7 @@ import java.awt.Toolkit;
 public class VentanaPrincipal extends JFrame {
 
 	private JPanel contentPane;
+	private static Banco popular = null;
 
 	/**
 	 * Launch the application.
@@ -23,6 +27,7 @@ public class VentanaPrincipal extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					popular = new Banco();
 					VentanaPrincipal frame = new VentanaPrincipal();
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -52,7 +57,7 @@ public class VentanaPrincipal extends JFrame {
 		JMenuItem mntmRetiro = new JMenuItem("Retiro");
 		mnTransacciones.add(mntmRetiro);
 		
-		JMenuItem mntmDepsito = new JMenuItem("Depósito");
+		JMenuItem mntmDepsito = new JMenuItem("Dep\u00F3sito");
 		mnTransacciones.add(mntmDepsito);
 		
 		JMenu mnClientes = new JMenu("Clientes");
@@ -82,7 +87,7 @@ public class VentanaPrincipal extends JFrame {
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		panel.setBounds(5, 202, 440, 42);
+		panel.setBounds(5, 202, 435, 42);
 		contentPane.add(panel);
 	}
 }

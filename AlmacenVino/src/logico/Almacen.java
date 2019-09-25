@@ -5,6 +5,8 @@ public class Almacen {
 	private Suministrador[] misSumis;
 	private static int cantVinos;
 	private static int cantSumi;
+	private static int generadorCodigoVino = 1;
+	private static int generadorCodigoSumi = 1;
 	public Almacen() {
 		super();
 		cantSumi = 0;
@@ -39,11 +41,13 @@ public class Almacen {
 	
 	public void insertarSuministrador(Suministrador sumi) {
 		misSumis[cantSumi] = sumi;
+		generadorCodigoSumi++;
 		cantSumi++;
 	}
 	
 	public void insertarVino(Vino vino) {
 		misVinos[cantVinos] = vino;
+		generadorCodigoVino++;
 		cantVinos++;
 	}
 	
@@ -73,7 +77,7 @@ public class Almacen {
 		return aux;
 	}
 	
-	private Suministrador buscarSuministrador(String idSumi) {
+	public Suministrador buscarSuministrador(String idSumi) {
 		Suministrador aux = null;
 		boolean encontrado = false;
 		int i = 0;
@@ -115,6 +119,28 @@ public class Almacen {
 			}
 		}
 		return nombre;
+	}
+	public static int getGeneradorCodigoVino() {
+		return generadorCodigoVino;
+	}
+	public static int getGeneradorCodigoSumi() {
+		return generadorCodigoSumi;
+	}
+	public void eliminarSuministrador(String idSupli) {
+		int i=0;
+		while (i<cantSumi) {
+			if (misSumis[i].getId().equals(idSupli)) {
+				cantSumi--;
+				for(int j=i;j<cantSumi;j++) {
+					misSumis[j]=misSumis[j+1];
+				}
+				misSumis[cantSumi] = null;
+				break;
+			}
+			i++;
+		}
+		
+		
 	}
 	
 	/*public Vino vinoMasRentable() {

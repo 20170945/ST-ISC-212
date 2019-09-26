@@ -9,18 +9,30 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import logico.Banco;
+import logico.Cliente;
+
 import javax.swing.border.TitledBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JFormattedTextField;
+import javax.swing.UIManager;
+import java.awt.Color;
+import javax.swing.JComboBox;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.event.CaretListener;
+import javax.swing.event.CaretEvent;
 
 public class RegCliente extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
+	private JTextField txtCdula;
+	private JTextField txtNombre;
+	private JTextField txtApellidos;
+	private JTextField txtDireccin;
+	private JTextField txtTlefono;
+	private JButton okButton;
 
 	/**
 	 * Launch the application.
@@ -39,17 +51,14 @@ public class RegCliente extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public RegCliente(Banco popular) {
-		if(popular==null) {
-			setTitle("Registrar Cliente");
-		}
-		else {
-			setTitle("Modificar Cliente");
-		}
+	public RegCliente(Banco popular, Cliente aModificar) {
+		boolean noHayCliente = (aModificar==null);
+		setTitle(noHayCliente? "Registrar Cliente" : "Modificar Cliente");
 		setResizable(false);
 		setBounds(100, 100, 450, 300);
+		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBorder(new TitledBorder(null, "Registrar informaci\u00F3n del cliente", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		contentPanel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), (noHayCliente? "Introduzca" : "Modifique")+" la informaci\u00F3n", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		
@@ -57,60 +66,124 @@ public class RegCliente extends JDialog {
 		lblCdula.setBounds(10, 28, 46, 14);
 		contentPanel.add(lblCdula);
 		
-		textField = new JTextField();
-		textField.setBounds(60, 25, 374, 20);
-		contentPanel.add(textField);
-		textField.setColumns(10);
+		txtCdula = new JTextField();
+		txtCdula.setEditable(noHayCliente);
+		txtCdula.setBounds(66, 25, 368, 20);
+		contentPanel.add(txtCdula);
+		txtCdula.setColumns(10);
 		
 		JLabel lblNombre = new JLabel("Nombre:");
-		lblNombre.setBounds(10, 70, 46, 14);
+		lblNombre.setBounds(10, 70, 62, 14);
 		contentPanel.add(lblNombre);
 		
+		txtNombre = new JTextField();
+		txtNombre.setBounds(66, 67, 368, 20);
+		contentPanel.add(txtNombre);
+		txtNombre.setColumns(10);
+		
 		JLabel lblApellidos = new JLabel("Apellidos:");
-		lblApellidos.setBounds(10, 112, 46, 14);
+		lblApellidos.setBounds(10, 112, 62, 14);
 		contentPanel.add(lblApellidos);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(60, 67, 374, 20);
-		contentPanel.add(textField_1);
-		textField_1.setColumns(10);
-		
-		textField_2 = new JTextField();
-		textField_2.setBounds(60, 109, 374, 20);
-		contentPanel.add(textField_2);
-		textField_2.setColumns(10);
+		txtApellidos = new JTextField();
+		txtApellidos.setBounds(66, 109, 368, 20);
+		contentPanel.add(txtApellidos);
+		txtApellidos.setColumns(10);
 		
 		JLabel lblDireccin = new JLabel("Direcci\u00F3n:");
 		lblDireccin.setBounds(10, 154, 57, 14);
 		contentPanel.add(lblDireccin);
 		
-		textField_3 = new JTextField();
-		textField_3.setBounds(60, 151, 374, 20);
-		contentPanel.add(textField_3);
-		textField_3.setColumns(10);
+		txtDireccin = new JTextField();
+		txtDireccin.setBounds(66, 151, 368, 20);
+		contentPanel.add(txtDireccin);
+		txtDireccin.setColumns(10);
 		
 		JLabel lblTlefono = new JLabel("T\u00E9lefono:");
-		lblTlefono.setBounds(10, 196, 46, 14);
+		lblTlefono.setBounds(10, 196, 72, 14);
 		contentPanel.add(lblTlefono);
 		
-		JFormattedTextField formattedTextField = new JFormattedTextField();
-		formattedTextField.setBounds(60, 193, 374, 20);
-		contentPanel.add(formattedTextField);
+		txtTlefono = new JTextField();
+		txtTlefono.setColumns(10);
+		txtTlefono.setBounds(66, 193, 368, 20);
+		contentPanel.add(txtTlefono);
+		
+		if(!noHayCliente) {
+			txtCdula.setText(aModificar.getCedula());
+			txtNombre.setText(aModificar.getNombre());
+			txtApellidos.setText(aModificar.getApellidos());
+			txtDireccin.setText(aModificar.getDireccion());
+			txtTlefono.setText(aModificar.getTelefono());
+		}
+		
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("OK");
+				okButton = new JButton(noHayCliente? "Registrar" : "Guardar");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						if(noHayCliente) {
+							Cliente aux = new Cliente(txtCdula.getText(), txtNombre.getText(), txtApellidos.getText(), txtDireccin.getText(), txtTlefono.getText());
+							if(!txtCdula.getText().equals("")) {
+								if(popular.insertarCliente(aux)) {
+									JOptionPane.showMessageDialog(null, "Operaci\u00F3n satisfatoria");
+									clean();
+								} else {
+									txtCdula.setForeground(Color.RED);
+									JOptionPane.showMessageDialog(null, "Ya existe un cliente con la c\u00E9dula:\n"+txtCdula.getText());
+								}
+							}
+						} else {
+							aModificar.setNombre(txtNombre.getText());
+							aModificar.setApellidos(txtApellidos.getText());
+							aModificar.setDireccion(txtApellidos.getText());
+							aModificar.setTelefono(txtTlefono.getText());
+							JOptionPane.showMessageDialog(null, "Operaci\u00F3n satisfatoria");
+							dispose();
+						}
+					}
+				});
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
+				if(noHayCliente) {
+					okButton.setEnabled(false);
+				}
 			}
 			{
-				JButton cancelButton = new JButton("Cancel");
+				JButton cancelButton = new JButton("Cancelar");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
 		}
+		
+		txtCdula.addCaretListener(new CaretListener() {
+			public void caretUpdate(CaretEvent e) {
+				if(noHayCliente ) {
+					if(popular.buscarCliente(txtCdula.getText())==null && !txtCdula.getText().equalsIgnoreCase("")) {
+						txtCdula.setForeground(Color.BLACK);
+						okButton.setEnabled(true);
+					} else {
+						txtCdula.setForeground(Color.RED);
+						okButton.setEnabled(false);
+					}
+				}
+			}
+		});
+	}
+	
+	private void clean() {
+		txtCdula.setText("");
+		txtNombre.setText("");
+		txtApellidos.setText("");
+		txtDireccin.setText("");
+		txtTlefono.setText("");
 	}
 }

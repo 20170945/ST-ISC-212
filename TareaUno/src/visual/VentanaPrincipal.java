@@ -14,11 +14,13 @@ import javax.swing.JMenu;
 import javax.swing.border.BevelBorder;
 import javax.swing.JMenuItem;
 import java.awt.Toolkit;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class VentanaPrincipal extends JFrame {
 
 	private JPanel contentPane;
-	private static Banco popular = null;
+	private Banco popular = null;
 
 	/**
 	 * Launch the application.
@@ -27,7 +29,6 @@ public class VentanaPrincipal extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					popular = new Banco();
 					VentanaPrincipal frame = new VentanaPrincipal();
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -41,6 +42,7 @@ public class VentanaPrincipal extends JFrame {
 	 * Create the frame.
 	 */
 	public VentanaPrincipal() {
+		this.popular = new Banco();
 		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaPrincipal.class.getResource("/visual/favicon.ico")));
 		setTitle("Banco Popular");
@@ -70,6 +72,13 @@ public class VentanaPrincipal extends JFrame {
 		mnClientes.add(mntmBuscar);
 		
 		JMenuItem mntmRegistrar = new JMenuItem("Registrar");
+		mntmRegistrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegCliente regClient = new RegCliente(popular, null);
+				regClient.setModal(true);
+				regClient.setVisible(true);
+			}
+		});
 		mnClientes.add(mntmRegistrar);
 		
 		JMenu mnCuentas = new JMenu("Cuentas");

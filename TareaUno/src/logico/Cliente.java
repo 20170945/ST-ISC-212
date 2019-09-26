@@ -5,11 +5,11 @@ public class Cliente {
 	private String nombre;
 	private String apellidos;
 	private String direccion;
-	private int telefono;
+	private String telefono;
 	private static int cantCuentas = 0;
 	private Cuenta[] cuentas;
 	
-	public Cliente(String cedula, String nombre, String apellidos, String direccion, int telefono) {
+	public Cliente(String cedula, String nombre, String apellidos, String direccion, String telefono) {
 		super();
 		this.cedula = cedula;
 		this.nombre = nombre;
@@ -43,11 +43,11 @@ public class Cliente {
 		this.direccion = direccion;
 	}
 
-	public int getTelefono() {
+	public String getTelefono() {
 		return telefono;
 	}
 
-	public void setTelefono(int telefono) {
+	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
 

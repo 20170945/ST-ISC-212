@@ -33,7 +33,7 @@ public class Banco {
 		this.cuentas = new Cuenta[50];
 	}
 	
-	private Cliente buscarCliente(String cedula) {
+	public Cliente buscarCliente(String cedula) {
 		Cliente aux = null;
 		int i = 0;
 		while(i<cantClientes) {

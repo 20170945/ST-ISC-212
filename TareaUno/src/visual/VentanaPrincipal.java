@@ -59,9 +59,23 @@ public class VentanaPrincipal extends JFrame {
 		menuBar.add(mnTransacciones);
 
 		JMenuItem mntmRetiro = new JMenuItem("Retiro");
+		mntmRetiro.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Retiro retiro = new Retiro(popular);
+				retiro.setModal(true);
+				retiro.setVisible(true);
+			}
+		});
 		mnTransacciones.add(mntmRetiro);
 
 		JMenuItem mntmDepsito = new JMenuItem("Dep\u00F3sito");
+		mntmDepsito.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Deposito nuevoDeposivo = new Deposito(popular);
+				nuevoDeposivo.setModal(true);
+				nuevoDeposivo.setVisible(true);
+			}
+		});
 		mnTransacciones.add(mntmDepsito);
 
 		JMenu mnClientes = new JMenu("Clientes");
@@ -86,6 +100,16 @@ public class VentanaPrincipal extends JFrame {
 			}
 		});
 		mnClientes.add(mntmRegistrar);
+		
+		JMenuItem mntmConsultas = new JMenuItem("Consultas");
+		mntmConsultas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Consulta consulta = new Consulta(popular);
+				consulta.setModal(true);
+				consulta.setVisible(true);
+			}
+		});
+		mnClientes.add(mntmConsultas);
 
 		JMenu mnCuentas = new JMenu("Cuentas");
 		menuBar.add(mnCuentas);

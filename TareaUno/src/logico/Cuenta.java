@@ -67,7 +67,7 @@ public class Cuenta {
 	public boolean retirar(String cedula, float cantidad) {
 		boolean paso = false;
 		if (this.cedulaCliente.equalsIgnoreCase(cedula)) {
-			if (this.saldo - cantidad > 0 && this.estado.equalsIgnoreCase("habilitado")) {
+			if (this.saldo - cantidad >= 0 && this.estado.equalsIgnoreCase("habilitada")) {
 				if (this.tipo.equalsIgnoreCase("cuenta corriente")) {
 					paso = true;
 				} else if (this.tipo.equalsIgnoreCase("fondo inversion")) {

@@ -79,7 +79,7 @@ public class Banco {
 	public Cuenta buscarCuenta(String codigo) {
 		Cuenta aux = null;
 		int i = 0;
-		while (i < cantClientes) {
+		while (i < cantCuentas) {
 			if (cuentas[i].getCodigo().equalsIgnoreCase(codigo)) {
 				aux = cuentas[i];
 				break;
@@ -119,16 +119,25 @@ public class Banco {
 		Cuenta[] lasCuentas = cliente.getCuentas();
 		while (i < cliente.getCantCuentas()) {
 			sum += lasCuentas[i].puntos();
+			i++;
 		}
 		return sum;
 	}
 
 	public boolean retirarDeCuenta(String cedulaCliente, String codigoCuenta, float cantidad) {
-		return buscarCuenta(codigoCuenta).retirar(cedulaCliente, cantidad);
+		Cuenta aux = buscarCuenta(codigoCuenta);
+		if(aux==null) {
+			return false;
+		}
+		return aux.retirar(cedulaCliente, cantidad);
 	}
 
 	public boolean ingresarACuenta(String codigo, float cantidad) {
-		return buscarCuenta(codigo).ingresar(cantidad);
+		Cuenta aux = buscarCuenta(codigo);
+		if(aux==null) {
+			return false;
+		}
+		return aux.ingresar(cantidad);
 	}
 
 	public boolean cambiarEstadoCuenta(Cuenta cuenta, String estado) {
@@ -149,6 +158,7 @@ public class Banco {
 		Cuenta[] lasCuentas = cliente.getCuentas();
 		while (i < cliente.getCantCuentas()) {
 			saldoTotal += lasCuentas[i].revisionMensual();
+			i++;
 		}
 		return saldoTotal;
 	}

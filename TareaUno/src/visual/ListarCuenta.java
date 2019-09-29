@@ -34,6 +34,7 @@ public class ListarCuenta extends JDialog {
 	private JButton btnRehabilitar;
 	private JButton btnBloquear;
 	private JButton btnCancelar;
+	private JButton btnAbrirCuenta;
 
 	/**
 	 * Launch the application.
@@ -114,6 +115,19 @@ public class ListarCuenta extends JDialog {
 						}
 					}
 				});
+				{
+					btnAbrirCuenta = new JButton("Abrir cuenta");
+					btnAbrirCuenta.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							RegCuenta regCuenta = new RegCuenta(popular, cliente);
+							regCuenta.setModal(true);
+							regCuenta.setVisible(true);
+							load();
+							lock();
+						}
+					});
+					buttonPane.add(btnAbrirCuenta);
+				}
 				btnRehabilitar.setEnabled(false);
 				buttonPane.add(btnRehabilitar);
 			}

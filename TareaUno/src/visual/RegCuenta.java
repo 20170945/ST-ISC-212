@@ -171,10 +171,6 @@ public class RegCuenta extends JDialog {
 		txtCdula.setBounds(76, 17, 331, 19);
 		contentPanel.add(txtCdula);
 		txtCdula.setColumns(10);
-		if (cliente != null) {
-			txtCdula.setEditable(false);
-			txtCdula.setText(cliente.getCedula());
-		}
 
 		spDiaCorte = new JSpinner();
 		spDiaCorte.setModel(new SpinnerNumberModel(1, 1, 31, 1));
@@ -225,6 +221,10 @@ public class RegCuenta extends JDialog {
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
+		}
+		if (!(cliente == null)) {
+			txtCdula.setEditable(false);
+			txtCdula.setText(cliente.getCedula());
 		}
 	}
 

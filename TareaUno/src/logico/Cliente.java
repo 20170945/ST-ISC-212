@@ -6,9 +6,9 @@ public class Cliente {
 	private String apellidos;
 	private String direccion;
 	private String telefono;
-	private static int cantCuentas = 0;
+	private int cantCuentas = 0;
 	private Cuenta[] cuentas;
-	
+
 	public Cliente(String cedula, String nombre, String apellidos, String direccion, String telefono) {
 		super();
 		this.cedula = cedula;
@@ -62,22 +62,31 @@ public class Cliente {
 	public Cuenta[] getCuentas() {
 		return cuentas;
 	}
-	
-	public void insertarCuenta(Cuenta cuenta) {
+
+	public boolean insertarCuenta(Cuenta cuenta) {
+		int i = 0;
+		while (i < cantCuentas) {
+			if (cuentas[i].getEstado().equalsIgnoreCase("habilitada")
+					&& cuentas[i].getTipo().equalsIgnoreCase(cuenta.getTipo())) {
+				return false;
+			}
+			i++;
+		}
 		cuentas[cantCuentas] = cuenta;
 		cantCuentas++;
+		return true;
 	}
-	
+
 	public void eliminarCuenta(String codigo) {
-		int i=0;
-		while(i<cantCuentas) {
-			if(this.cuentas[i].getCodigo().equalsIgnoreCase(codigo)) {
+		int i = 0;
+		while (i < cantCuentas) {
+			if (this.cuentas[i].getCodigo().equalsIgnoreCase(codigo)) {
 				cantCuentas--;
-				while(i<cantCuentas) {
-					cuentas[i] = cuentas[i+1];
+				while (i < cantCuentas) {
+					cuentas[i] = cuentas[i + 1];
 					i++;
 				}
-				cuentas[i]=null;
+				cuentas[i] = null;
 			}
 			i++;
 		}

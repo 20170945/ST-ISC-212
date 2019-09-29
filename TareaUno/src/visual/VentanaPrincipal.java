@@ -13,6 +13,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.border.BevelBorder;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -49,28 +51,32 @@ public class VentanaPrincipal extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		setLocationRelativeTo(null);
-		
+
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
-		
+
 		JMenu mnTransacciones = new JMenu("Transacciones");
 		menuBar.add(mnTransacciones);
-		
+
 		JMenuItem mntmRetiro = new JMenuItem("Retiro");
 		mnTransacciones.add(mntmRetiro);
-		
+
 		JMenuItem mntmDepsito = new JMenuItem("Dep\u00F3sito");
 		mnTransacciones.add(mntmDepsito);
-		
+
 		JMenu mnClientes = new JMenu("Clientes");
 		menuBar.add(mnClientes);
-		
+
 		JMenuItem mntmListar = new JMenuItem("Listar");
+		mntmListar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ListarCliente listClient = new ListarCliente(popular);
+				listClient.setModal(true);
+				listClient.setVisible(true);
+			}
+		});
 		mnClientes.add(mntmListar);
-		
-		JMenuItem mntmBuscar = new JMenuItem("Buscar");
-		mnClientes.add(mntmBuscar);
-		
+
 		JMenuItem mntmRegistrar = new JMenuItem("Registrar");
 		mntmRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -80,20 +86,38 @@ public class VentanaPrincipal extends JFrame {
 			}
 		});
 		mnClientes.add(mntmRegistrar);
-		
+
 		JMenu mnCuentas = new JMenu("Cuentas");
 		menuBar.add(mnCuentas);
-		
+
 		JMenuItem menuItem_1 = new JMenuItem("Listar");
+		menuItem_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ListarCuenta listaCuenta = new ListarCuenta(popular, null);
+				listaCuenta.setModal(true);
+				listaCuenta.setVisible(true);
+			}
+		});
 		mnCuentas.add(menuItem_1);
-		
-		JMenuItem mntmBuscar_1 = new JMenuItem("Buscar");
-		mnCuentas.add(mntmBuscar_1);
+
+		JMenuItem mntmRegistrar_1 = new JMenuItem("Abrir una");
+		mntmRegistrar_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(popular.getCantClientes()>0) {
+					RegCuenta nuevaCuenta = new RegCuenta(popular, null);
+					nuevaCuenta.setModal(true);
+					nuevaCuenta.setVisible(true);
+				} else {
+					JOptionPane.showMessageDialog(null, "No hay clientes para poder abrir una cuenta.");
+				}
+			}
+		});
+		mnCuentas.add(mntmRegistrar_1);
 		contentPane = new JPanel();
 		contentPane.setBorder(null);
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JPanel panel = new JPanel();
 		panel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		panel.setBounds(5, 202, 435, 42);

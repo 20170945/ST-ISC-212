@@ -1,123 +1,130 @@
 package logico;
 
 public class Cuenta {
+	private String cedulaCliente;
 	private String codigo;
 	private String tipo;
 	private String estado;
 	private float saldo = 0;
-	private float dineroIngresado = 0;
-	private int puntosCajeados = 0;
 	private float interes;
 	private int[] fechaApertura;
-	private int[] diaCorteMensual;
-	
+	private int diaCorteMensual;
+
+	public String getCedulaCliente() {
+		return cedulaCliente;
+	}
+
 	public String getCodigo() {
 		return codigo;
 	}
+
 	public String getTipo() {
 		return tipo;
 	}
+
 	public String getEstado() {
 		return estado;
 	}
+
 	public float getSaldo() {
 		return saldo;
 	}
-	public float getDineroIngresado() {
-		return dineroIngresado;
-	}
-	public float getPuntosCajeados() {
-		return puntosCajeados;
-	}
+
 	public float getInteres() {
 		return interes;
 	}
+
 	public int[] getFechaApertura() {
 		return fechaApertura;
 	}
-	public int[] getDiaCorteMensual() {
+
+	public int getDiaCorteMensual() {
 		return diaCorteMensual;
 	}
-	
-	public Cuenta(String codigo, String tipo, String estado, float interes, int[] fechaApertura, int[] diaCorteMensual) {
+
+	public Cuenta(String cedulaCliente, String codigo, String tipo, float interes, int[] fechaApertura,
+			int diaCorteMensual) {
 		super();
 		int i;
+		this.cedulaCliente = cedulaCliente;
 		this.codigo = codigo;
 		this.tipo = tipo;
-		this.estado = estado;
+		this.estado = "habilitada";
 		this.interes = interes;
 		this.fechaApertura = new int[3];
-		this.diaCorteMensual = new int[2];
 		i = 0;
-		while(i<3) {
+		while (i < 3) {
 			this.fechaApertura[i] = fechaApertura[i];
-			if(i<2) {
-				this.diaCorteMensual[i] = diaCorteMensual[i];
-			}
 			i++;
 		}
+		this.diaCorteMensual = fechaApertura[0];
 	}
-	
+
 	public int puntos() {
-		return (int) (this.dineroIngresado/6) - puntosCajeados;
+		return (int) (this.saldo / 6);
 	}
-	
-	protected boolean retirar(float cantidad) {
+
+	public boolean retirar(String cedula, float cantidad) {
 		boolean paso = false;
-		if(this.saldo-cantidad>0 && this.estado.equalsIgnoreCase("habilitado")) {
-			if(this.tipo.equalsIgnoreCase("cuenta corriente")) {
-				paso = true;
-			}
-			else if(this.tipo.equalsIgnoreCase("fondo inversion") && this.dineroIngresado-this.saldo<=500) {
-				paso = true;
-				if(this.dineroIngresado-this.saldo+cantidad>500) {
-					this.bloquear();
+		if (this.cedulaCliente.equalsIgnoreCase(cedula)) {
+			if (this.saldo - cantidad > 0 && this.estado.equalsIgnoreCase("habilitado")) {
+				if (this.tipo.equalsIgnoreCase("cuenta corriente")) {
+					paso = true;
+				} else if (this.tipo.equalsIgnoreCase("fondo inversion")) {
+					paso = true;
+					if (cantidad > 500) {
+						this.bloquear();
+					}
 				}
 			}
-		}
-		if(paso) {
-			this.saldo -= cantidad;
+			if (paso) {
+				this.saldo -= cantidad;
+			}
 		}
 		return paso;
 	}
-	
-	protected boolean ingresar(float cantidad) {
+
+	public boolean ingresar(float cantidad) {
 		boolean paso = false;
-		if(this.estado.equalsIgnoreCase("habilitada")) {
+		if (this.estado.equalsIgnoreCase("habilitada")) {
 			paso = true;
 			this.saldo += cantidad;
 		}
 		return paso;
 	}
-	
-	protected void bloquear() {
-		if(this.estado.equalsIgnoreCase("habilitada")) {
+
+	public boolean bloquear() {
+		if (this.estado.equalsIgnoreCase("habilitada")) {
 			this.estado = "bloqueada";
+			return true;
 		}
+		return false;
 	}
-	
-	protected void rehabilitar() {
-		if(this.estado.equalsIgnoreCase("bloqueada")) {
+
+	public boolean rehabilitar(Banco popular) {
+		Cliente cliente = popular.buscarCliente(getCedulaCliente());
+		if (this.estado.equalsIgnoreCase("bloqueada")) {
+			int i = 0;
+			Cuenta[] cuentas = cliente.getCuentas();
+			while(i<cliente.getCantCuentas()) {
+				if(cuentas[i].getEstado().contentEquals("habilitada") && cuentas[i].getTipo().equalsIgnoreCase(this.tipo)) {
+					return false;
+				}
+				i++;
+			}
 			this.estado = "habilitada";
+			return true;
 		}
+		return false;
 	}
-	
-	protected void cancelar() {
+
+	public void cancelar() {
 		this.estado = "cancelada";
 	}
-	
-	protected boolean cajearPuntos(int cantidad) {
-		boolean paso = false;
-		if(cantidad<=this.puntos()) {
-			puntosCajeados+=1;
-			paso = true;
-		}
-		return paso;
-	}
-	
-	protected float revisionMensual() {
-		if(this.estado.equalsIgnoreCase("habilitada")) {
-			return (float) (this.saldo*(1+this.interes) - 0.6);
+
+	public float revisionMensual() {
+		if (this.estado.equalsIgnoreCase("habilitada")) {
+			return (float) (this.saldo * (1 + this.interes) - 0.6);
 		}
 		return 0;
 	}

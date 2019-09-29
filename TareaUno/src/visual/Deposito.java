@@ -32,7 +32,7 @@ public class Deposito extends JDialog {
 	 * Create the dialog.
 	 */
 	public Deposito(Banco popular) {
-		setTitle("Depósito");
+		setTitle("Dep\u00F3sito");
 		setResizable(false);
 		setBounds(100, 100, 450, 300);
 		setLocationRelativeTo(null);

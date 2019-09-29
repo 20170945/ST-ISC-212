@@ -45,7 +45,7 @@ public class Retiro extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		{
-			JLabel label = new JLabel("Cédula*:");
+			JLabel label = new JLabel("C\u00E9dula*:");
 			label.setBounds(12, 48, 95, 14);
 			contentPanel.add(label);
 		}

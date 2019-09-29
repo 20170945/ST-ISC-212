@@ -61,7 +61,7 @@ public class ListarCliente extends JDialog {
 			{
 
 				model = new DefaultTableModel();
-				String[] headers = { "Cédula", "Nombre", "Apellidos" };
+				String[] headers = { "C\u00E9dula", "Nombre", "Apellidos" };
 				model.setColumnIdentifiers(headers);
 				table = new JTable();
 				table.addMouseListener(new MouseAdapter() {

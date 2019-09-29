@@ -68,7 +68,7 @@ public class RegCuenta extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 
-		JLabel lblCdula = new JLabel("Cédula*:");
+		JLabel lblCdula = new JLabel("C\u00E9dula*:");
 		lblCdula.setBounds(12, 19, 70, 15);
 		contentPanel.add(lblCdula);
 
@@ -108,11 +108,11 @@ public class RegCuenta extends JDialog {
 			}
 		});
 		cbTipo.setModel(new DefaultComboBoxModel(
-				new String[] { "Seleccione", "Cuenta Corriente", "Cuenta de Vivienda", "Fondo de Inversión" }));
+				new String[] { "Seleccione", "Cuenta Corriente", "Cuenta de Vivienda", "Fondo de Inversi\u00F3n" }));
 		cbTipo.setBounds(62, 82, 179, 24);
 		contentPanel.add(cbTipo);
 
-		JLabel lblInters = new JLabel("Interés:");
+		JLabel lblInters = new JLabel("Inter\u00E9s:");
 		lblInters.setBounds(275, 87, 70, 15);
 		contentPanel.add(lblInters);
 
@@ -123,7 +123,7 @@ public class RegCuenta extends JDialog {
 		contentPanel.add(txtInteres);
 		txtInteres.setColumns(10);
 
-		JLabel lblDaDeCorte = new JLabel("Día de corte mensual:");
+		JLabel lblDaDeCorte = new JLabel("D\u00EDa de corte mensual:");
 		lblDaDeCorte.setBounds(12, 198, 167, 15);
 		contentPanel.add(lblDaDeCorte);
 
@@ -134,7 +134,7 @@ public class RegCuenta extends JDialog {
 		contentPanel.add(panel);
 		panel.setLayout(null);
 
-		JLabel label = new JLabel("Día:");
+		JLabel label = new JLabel("D\u00EDa:");
 		label.setBounds(12, 22, 51, 15);
 		panel.add(label);
 
@@ -153,7 +153,7 @@ public class RegCuenta extends JDialog {
 		cbMes.setBounds(166, 17, 142, 24);
 		panel.add(cbMes);
 
-		JLabel lblAo = new JLabel("Año:");
+		JLabel lblAo = new JLabel("A\u00F1o:");
 		lblAo.setBounds(317, 22, 51, 15);
 		panel.add(lblAo);
 
@@ -193,7 +193,7 @@ public class RegCuenta extends JDialog {
 								cbTipo.getSelectedItem().toString(), Float.valueOf(txtInteres.getText()), fechaApertura,
 								Integer.valueOf(spDiaCorte.getValue().toString()));
 						if (popular.buscarCliente(txtCdula.getText()) == null) {
-							JOptionPane.showMessageDialog(null, "No hay cliente con esa cédula.");
+							JOptionPane.showMessageDialog(null, "No hay cliente con esa c\u00E9dula.");
 						} else {
 							if (popular.abrirCuenta(popular.buscarCliente(txtCdula.getText()), nuevaCuenta)) {
 								JOptionPane.showMessageDialog(null, "Operaci\u00F3n satisfatoria");

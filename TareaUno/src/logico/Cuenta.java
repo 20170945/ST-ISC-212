@@ -70,7 +70,7 @@ public class Cuenta {
 			if (this.saldo - cantidad >= 0 && this.estado.equalsIgnoreCase("habilitada")) {
 				if (this.tipo.equalsIgnoreCase("cuenta corriente")) {
 					paso = true;
-				} else if (this.tipo.equalsIgnoreCase("fondo inversion")) {
+				} else if (this.tipo.equalsIgnoreCase("fondo de inversi\u00F3n")) {
 					paso = true;
 					if (cantidad > 500) {
 						this.bloquear();

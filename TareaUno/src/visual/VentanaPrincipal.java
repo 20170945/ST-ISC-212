@@ -46,7 +46,6 @@ public class VentanaPrincipal extends JFrame {
 	public VentanaPrincipal() {
 		this.popular = new Banco();
 		setResizable(false);
-		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaPrincipal.class.getResource("/visual/favicon.ico")));
 		setTitle("Banco Popular");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -100,7 +99,7 @@ public class VentanaPrincipal extends JFrame {
 			}
 		});
 		mnClientes.add(mntmRegistrar);
-		
+
 		JMenuItem mntmConsultas = new JMenuItem("Consultas");
 		mntmConsultas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -127,7 +126,7 @@ public class VentanaPrincipal extends JFrame {
 		JMenuItem mntmRegistrar_1 = new JMenuItem("Abrir una");
 		mntmRegistrar_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(popular.getCantClientes()>0) {
+				if (popular.getCantClientes() > 0) {
 					RegCuenta nuevaCuenta = new RegCuenta(popular, null);
 					nuevaCuenta.setModal(true);
 					nuevaCuenta.setVisible(true);

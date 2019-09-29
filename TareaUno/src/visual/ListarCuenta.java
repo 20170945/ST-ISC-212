@@ -71,7 +71,7 @@ public class ListarCuenta extends JDialog {
 			contentPanel.add(scrollPane, BorderLayout.CENTER);
 			{
 				model = new DefaultTableModel();
-				String[] header = {"Número","Tipo","Estado","Saldo","Día de corte","Fecha de apertura"};
+				String[] header = {"N\u00FAmero","Tipo","Estado","Saldo","D\u00EDa de corte","Fecha de apertura"};
 				model.setColumnIdentifiers(header);
 				table = new JTable();
 				table.addMouseListener(new MouseAdapter() {
@@ -115,7 +115,7 @@ public class ListarCuenta extends JDialog {
 						}
 					}
 				});
-				{
+				if(!(cliente==null)){
 					btnAbrirCuenta = new JButton("Abrir cuenta");
 					btnAbrirCuenta.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {

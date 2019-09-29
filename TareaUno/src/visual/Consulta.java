@@ -45,7 +45,7 @@ public class Consulta extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		{
-			JLabel lblCdula = new JLabel("Cédula:");
+			JLabel lblCdula = new JLabel("C\u00E9dula:");
 			lblCdula.setBounds(12, 23, 95, 14);
 			contentPanel.add(lblCdula);
 		}
